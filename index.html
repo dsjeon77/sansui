@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="2026 국외현장실습 8-JP 복합과정 · 산스이 농박 관찰 기록 양식">
+<title>산스이 농박 관찰 기록</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@600;700&display=swap">
+<style>
+/* 레이아웃: 휴대폰 한 줄 세로 흐름 — 머리말 → 기본정보 → 관찰 카드 3장 → 기록 카드 만들기 */
+:root {
+  --bg: #f3f6f4;          /* 계곡 안개 */
+  --paper: #ffffff;
+  --ink: #1d2a26;
+  --muted: #5d6b66;
+  --line: #d5ded9;
+  --river: #1f5f5b;       /* 아야강 물빛 */
+  --river-soft: #e3efec;
+  --ayu: #b7802f;         /* 은어 소금구이 빛 */
+  --ayu-soft: #f6ecdc;
+  --ok: #2e7d4f;
+  --danger: #b4232f;
+  --display: "Noto Serif KR", "Nanum Myeongjo", serif;
+  --body: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111816; --paper: #18221f; --ink: #e6eeea; --muted: #a2b2ac; --line: #2c3a35;
+    --river: #6fbdb5; --river-soft: #1d302d; --ayu: #e0ad5f; --ayu-soft: #2e2618; --ok: #6cc08f; --danger: #f07a83;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111816; --paper: #18221f; --ink: #e6eeea; --muted: #a2b2ac; --line: #2c3a35;
+  --river: #6fbdb5; --river-soft: #1d302d; --ayu: #e0ad5f; --ayu-soft: #2e2618; --ok: #6cc08f; --danger: #f07a83;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.6; }
+.wrap { max-width: 640px; margin: 0 auto; padding-block: 20px 48px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 18px; }
+header { display: grid; gap: 6px; padding-block: 6px 4px; }
+.eyebrow { font-size: 12.5px; letter-spacing: .06em; color: var(--river); font-weight: 700; }
+h1 { font-family: var(--display); font-size: 27px; line-height: 1.3; margin: 0; text-wrap: balance; }
+.lead { color: var(--muted); font-size: 14.5px; margin: 0; }
+.task { background: var(--river-soft); border-radius: 12px; padding: 12px 14px; font-size: 14px; }
+.task b { color: var(--river); }
+section.panel { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: grid; gap: 12px; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.row > * { min-width: 0; }
+label { display: grid; gap: 5px; font-size: 13.5px; font-weight: 500; color: var(--muted); }
+input[type=text], textarea { width: 100%; font: inherit; font-size: 16px; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+textarea { min-height: 76px; resize: vertical; }
+input:focus-visible, textarea:focus-visible, button:focus-visible, .chip:focus-within { outline: 2px solid var(--river); outline-offset: 2px; }
+.obs-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.obs-head h2 { font-family: var(--display); font-size: 19px; margin: 0; display: flex; align-items: center; gap: 10px; }
+.num { width: 30px; height: 30px; border-radius: 50%; background: var(--ayu); color: #fff; display: grid; place-items: center; font-family: var(--body); font-size: 15px; font-weight: 700; flex: none; }
+.state { font-size: 12.5px; padding: 3px 10px; border-radius: 999px; background: var(--bg); color: var(--muted); white-space: nowrap; }
+.state.done { background: var(--river-soft); color: var(--ok); font-weight: 700; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { position: relative; }
+.chip input { position: absolute; opacity: 0; inset: 0; }
+.chip span { display: inline-block; padding: 7px 13px; border-radius: 999px; border: 1px solid var(--line); font-size: 14px; color: var(--ink); background: var(--paper); cursor: pointer; }
+.chip input:checked + span { background: var(--ayu-soft); border-color: var(--ayu); color: var(--ink); font-weight: 700; }
+.photo { border: 1.5px dashed var(--line); border-radius: 12px; min-height: 150px; display: grid; place-items: center; overflow: hidden; position: relative; background: var(--bg); cursor: pointer; }
+.photo img { width: 100%; max-height: 320px; object-fit: cover; display: block; }
+.photo .ph { text-align: center; color: var(--muted); font-size: 14px; padding: 16px; }
+.photo .ph b { display: block; color: var(--river); font-size: 15px; margin-bottom: 2px; }
+.photo input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.photo-tools { display: flex; justify-content: flex-end; }
+.linkbtn { background: none; border: 0; color: var(--muted); font: inherit; font-size: 13px; text-decoration: underline; cursor: pointer; padding: 2px 0; }
+.progress { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--muted); }
+.bar { flex: 1; height: 8px; background: var(--line); border-radius: 99px; overflow: hidden; }
+.bar i { display: block; height: 100%; width: 0; background: var(--river); transition: width .3s; }
+.actions { display: grid; gap: 10px; }
+.btn { font: inherit; font-weight: 700; font-size: 16px; border-radius: 12px; padding: 14px; border: 0; cursor: pointer; background: var(--river); color: #fff; }
+.btn.secondary { background: var(--paper); color: var(--ink); border: 1px solid var(--line); font-weight: 500; }
+.btn:disabled { opacity: .5; cursor: default; }
+.result { display: grid; gap: 12px; }
+.result img { width: 100%; border-radius: 10px; border: 1px solid var(--line); background: #fff; }
+.howto { font-size: 14px; background: var(--ayu-soft); border-radius: 12px; padding: 12px 14px; display: grid; gap: 4px; }
+.howto b { color: var(--ink); }
+.confirm { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 14px; color: var(--danger); }
+.confirm button { font: inherit; font-size: 14px; padding: 7px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); cursor: pointer; }
+.confirm button.del { border-color: var(--danger); color: var(--danger); }
+.note { font-size: 12.5px; color: var(--muted); }
+.saved { font-size: 12.5px; color: var(--muted); text-align: right; min-height: 1.2em; }
+@media (max-width: 420px) { .row { grid-template-columns: 1fr; } h1 { font-size: 24px; } }
+@media (prefers-reduced-motion: reduce) { .bar i { transition: none; } }
+</style>
+<style>html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">8-JP 복합과정 · 10.28.(수) · 아유노오야도 산스이</div>
+    <h1>산스이 농박 관찰 기록</h1>
+    <p class="lead">농박을 하며 관찰한 서비스 가운데 인상 깊은 점 3가지를 사진과 함께 기록합니다.</p>
+    <div class="task"><b>Team Works</b> — 식사 구성 · 객실 · 안내 · 예절 중에서 인상 깊은 점 3가지를 골라, 사진 1장과 짧은 글로 남겨 보세요. 다 쓰면 <b>기록 카드</b> 이미지를 만들어 팀 패들렛에 올립니다.</div>
+  </header>
+
+  <section class="panel" aria-label="기본 정보">
+    <div class="row">
+      <label for="name">이름<input id="name" type="text" autocomplete="name" placeholder="예) 홍길동"></label>
+      <label for="team">팀<input id="team" type="text" placeholder="예) 2팀"></label>
+    </div>
+    <label for="school">학교 · 학과<input id="school" type="text" placeholder="예) ○○농업고등학교 원예과"></label>
+  </section>
+
+  <div id="obs"></div>
+
+  <section class="panel">
+    <div class="progress"><span id="progText">0 / 3 완성</span><div class="bar"><i id="progBar"></i></div></div>
+    <div class="actions">
+      <button class="btn" id="make" type="button">기록 카드 만들기</button>
+      <div id="resetArea"><button class="linkbtn" id="reset" type="button">모두 지우고 새로 쓰기</button></div>
+    </div>
+    <div class="saved" id="saved" aria-live="polite"></div>
+  </section>
+
+  <section class="panel result" id="result" hidden aria-live="polite">
+    <h2 style="font-family:var(--display);font-size:19px;margin:0">나의 기록 카드</h2>
+    <div class="note" id="cardMsg" aria-live="polite" style="color:var(--river);font-weight:700"></div>
+    <img id="cardImg" alt="관찰 기록 카드 이미지">
+    <button class="btn" id="dl" type="button" hidden>이미지로 저장하기</button>
+    <div class="howto">
+      <div><b>사진첩에 저장하는 방법</b></div>
+      <div>· 아이폰 : 카드 이미지를 길게 누르고 ‘사진 앱에 저장’</div>
+      <div>· 안드로이드 : 카드 이미지를 길게 누르고 ‘이미지 다운로드’ 또는 ‘이미지 저장’</div>
+      <div>· 저장이 안 되면 화면을 캡처해도 됩니다.</div>
+      <div style="margin-top:4px"><b>제출</b> : 저장한 이미지를 팀 패들렛의 ‘농박 관찰’ 칸에 올립니다.</div>
+    </div>
+  </section>
+
+  <p class="note">작성한 글과 사진은 이 휴대폰에만 임시로 저장되며, 다른 사람에게 보이지 않습니다. 다른 휴대폰에서 이어 쓸 수는 없습니다.</p>
+</div>
+
+<script>
+(function () {
+  const CATS = ['식사 구성', '객실', '안내', '예절', '기타'];
+  const KEY = 'sansui-obs-v1';
+  const HINTS = [
+    { title: '예) 은어 한 마리로 차린 정식', what: '예) 은어 소금구이·튀김·조림·은어밥이 차례로 나왔다.', why: '예) 한 가지 재료로 여러 요리를 만들어 지역 특산물을 기억에 남게 했다.', apply: '예) 우리 지역 대표 작물 하나로 코스 요리를 만드는 농박을 해 보고 싶다.' },
+    { title: '예) 다다미방과 정리된 이불', what: '예) 방에 들어가기 전 신발을 벗고, 이불이 가지런히 개어 있었다.', why: '예) 작은 정리 하나로 손님이 대접받는다고 느꼈다.', apply: '예) 체험농장 숙소에도 손님 맞이 순서표를 만들고 싶다.' },
+    { title: '예) 목욕과 식사 시간 안내', what: '예) 도착하자마자 목욕·식사·소등 시간을 알려 주었다.', why: '예) 처음 온 손님도 헤매지 않고 편하게 지낼 수 있었다.', apply: '예) 한국어·영어 안내 카드를 만들어 외국인 손님도 맞을 수 있다.' },
+  ];
+  let state = { name: '', team: '', school: '', items: [0, 1, 2].map(() => ({ cat: '', title: '', what: '', why: '', apply: '', photo: '' })) };
+
+  try { const s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s && Array.isArray(s.items)) state = Object.assign(state, s); } catch (e) {}
+
+  const $ = (id) => document.getElementById(id);
+  const obs = $('obs');
+
+  function esc(s) { return String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+
+  function renderCards() {
+    obs.innerHTML = state.items.map((it, i) => `
+      <section class="panel" style="margin-bottom:18px" aria-labelledby="h${i}">
+        <div class="obs-head"><h2 id="h${i}"><span class="num">${i + 1}</span>인상 깊은 점 ${i + 1}</h2><span class="state" id="st${i}"></span></div>
+        <div class="chips" role="radiogroup" aria-label="관찰 영역">
+          ${CATS.map((c, k) => `<label class="chip"><input type="radio" name="cat${i}" id="cat${i}_${k}" value="${c}" ${it.cat === c ? 'checked' : ''}><span>${c}</span></label>`).join('')}
+        </div>
+        <div class="photo" id="ph${i}">
+          ${it.photo ? `<img src="${it.photo}" alt="인상 깊은 점 ${i + 1} 사진">` : `<div class="ph"><b>사진 추가</b>눌러서 사진을 찍거나 사진첩에서 고르세요</div>`}
+          <input type="file" accept="image/*" id="file${i}" aria-label="인상 깊은 점 ${i + 1} 사진 선택">
+        </div>
+        ${it.photo ? `<div class="photo-tools"><button class="linkbtn" type="button" data-rm="${i}">사진 빼기</button></div>` : ''}
+        <label for="title${i}">한 줄 제목<input type="text" id="title${i}" maxlength="40" placeholder="${esc(HINTS[i].title)}" value="${esc(it.title)}"></label>
+        <label for="what${i}">무엇을 보았나요? (본 것)<textarea id="what${i}" placeholder="${esc(HINTS[i].what)}">${esc(it.what)}</textarea></label>
+        <label for="why${i}">왜 인상 깊었나요? (의미)<textarea id="why${i}" placeholder="${esc(HINTS[i].why)}">${esc(it.why)}</textarea></label>
+        <label for="apply${i}">우리나라 농박이나 나의 진로에 적용한다면? (우리)<textarea id="apply${i}" placeholder="${esc(HINTS[i].apply)}">${esc(it.apply)}</textarea></label>
+      </section>`).join('');
+    state.items.forEach((it, i) => {
+      CATS.forEach((c, k) => $(`cat${i}_${k}`).addEventListener('change', () => { it.cat = c; changed(); }));
+      ['title', 'what', 'why', 'apply'].forEach((f) => $(`${f}${i}`).addEventListener('input', (e) => { it[f] = e.target.value; changed(); }));
+      $(`file${i}`).addEventListener('change', (e) => { const f = e.target.files && e.target.files[0]; if (f) loadPhoto(f, i); });
+    });
+    obs.querySelectorAll('[data-rm]').forEach((b) => b.addEventListener('click', () => { state.items[+b.dataset.rm].photo = ''; changed(); renderCards(); }));
+    updateProgress();
+  }
+
+  function loadPhoto(file, i) {
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => {
+      const max = 1000, sc = Math.min(1, max / Math.max(img.width, img.height));
+      const c = document.createElement('canvas');
+      c.width = Math.round(img.width * sc); c.height = Math.round(img.height * sc);
+      c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+      state.items[i].photo = c.toDataURL('image/jpeg', 0.78);
+      URL.revokeObjectURL(url);
+      changed(); renderCards();
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); $('saved').textContent = '이 사진은 열 수 없습니다. 다른 사진을 골라 주세요.'; };
+    img.src = url;
+  }
+
+  const filled = (it) => it.cat && it.photo && it.title.trim() && it.what.trim() && it.why.trim();
+  function updateProgress() {
+    let n = 0;
+    state.items.forEach((it, i) => { const ok = filled(it); if (ok) n++; const el = $(`st${i}`); if (el) { el.textContent = ok ? '완성' : '작성 중'; el.className = 'state' + (ok ? ' done' : ''); } });
+    $('progText').textContent = `${n} / 3 완성`;
+    $('progBar').style.width = (n / 3 * 100) + '%';
+  }
+
+  let saveTimer;
+  function changed() {
+    updateProgress();
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(() => {
+      try { localStorage.setItem(KEY, JSON.stringify(state)); $('saved').textContent = '이 휴대폰에 임시 저장됨'; }
+      catch (e) {
+        try { localStorage.setItem(KEY, JSON.stringify(Object.assign({}, state, { items: state.items.map((it) => Object.assign({}, it, { photo: '' })) }))); $('saved').textContent = '글은 임시 저장됨 (사진은 용량 때문에 저장되지 않음)'; }
+        catch (e2) { $('saved').textContent = '임시 저장이 안 되는 환경입니다. 화면을 닫지 말고 끝까지 작성하세요.'; }
+      }
+    }, 400);
+  }
+
+  ['name', 'team', 'school'].forEach((f) => { const el = $(f); el.value = state[f] || ''; el.addEventListener('input', () => { state[f] = el.value; changed(); }); });
+
+  // 초기화 (페이지 안에서 확인)
+  function resetIdle() {
+    $('resetArea').innerHTML = '<button class="linkbtn" id="reset" type="button">모두 지우고 새로 쓰기</button>';
+    $('reset').addEventListener('click', askReset);
+  }
+  function askReset() {
+    $('resetArea').innerHTML = '<div class="confirm">작성한 글과 사진이 모두 지워집니다. <button class="del" id="yes" type="button">지우기</button><button id="no" type="button">취소</button></div>';
+    $('no').addEventListener('click', resetIdle);
+    $('yes').addEventListener('click', () => {
+      state = { name: '', team: '', school: '', items: [0, 1, 2].map(() => ({ cat: '', title: '', what: '', why: '', apply: '', photo: '' })) };
+      try { localStorage.removeItem(KEY); } catch (e) {}
+      ['name', 'team', 'school'].forEach((f) => { $(f).value = ''; });
+      $('result').hidden = true; renderCards(); resetIdle(); $('saved').textContent = '새로 쓰기를 시작합니다.';
+    });
+  }
+  $('reset').addEventListener('click', askReset);
+
+  // ── 기록 카드 이미지
+  const FONT = '"Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif';
+  const SERIF = '"Noto Serif KR", "Noto Sans KR", serif';
+  function wrap(ctx, text, maxW) {
+    const out = [];
+    String(text || '').split('\n').forEach((para) => {
+      let line = '';
+      for (const ch of para) { if (ctx.measureText(line + ch).width > maxW && line) { out.push(line); line = ch; } else line += ch; }
+      out.push(line);
+    });
+    return out;
+  }
+  function loadImg(src) { return new Promise((res) => { if (!src) return res(null); const im = new Image(); im.onload = () => res(im); im.onerror = () => res(null); im.src = src; }); }
+
+  async function makeCard() {
+    try { await Promise.all([document.fonts.load('700 40px "Noto Sans KR"'), document.fonts.load('400 30px "Noto Sans KR"'), document.fonts.load('700 50px "Noto Serif KR"')]); } catch (e) {}
+    const imgs = await Promise.all(state.items.map((it) => loadImg(it.photo)));
+    const Wd = 1080, P = 60, CW = Wd - 2 * P;
+    const c = document.createElement('canvas');
+    const ctx = c.getContext('2d');
+    // 높이 계산
+    const blocks = state.items.map((it, i) => {
+      ctx.font = `400 30px ${FONT}`;
+      const parts = [['본 것', it.what], ['의미', it.why], ['우리', it.apply]].map(([k, v]) => [k, wrap(ctx, v || '-', CW - 110)]);
+      const ph = imgs[i] ? Math.min(560, Math.round(CW * imgs[i].height / imgs[i].width)) : 0;
+      const textH = parts.reduce((a, [, ls]) => a + ls.length * 44 + 14, 0);
+      return { it, parts, ph, h: 90 + (ph ? ph + 26 : 0) + textH + 40 };
+    });
+    const H = 300 + blocks.reduce((a, b) => a + b.h + 30, 0) + 90;
+    c.width = Wd; c.height = H;
+    ctx.fillStyle = '#f3f6f4'; ctx.fillRect(0, 0, Wd, H);
+    // 머리
+    ctx.fillStyle = '#1f5f5b'; ctx.fillRect(0, 0, Wd, 250);
+    ctx.fillStyle = '#cfe5e1'; ctx.font = `700 26px ${FONT}`; ctx.fillText('8-JP 복합과정 · 10.28.(수) · 아유노오야도 산스이', P, 70);
+    ctx.fillStyle = '#ffffff'; ctx.font = `700 54px ${SERIF}`; ctx.fillText('산스이 농박 관찰 기록', P, 140);
+    ctx.font = `400 30px ${FONT}`; ctx.fillStyle = '#e6f2ef';
+    const who = [state.school, state.team, state.name].filter((s) => s && s.trim()).join('  ·  ') || '이름을 적어 주세요';
+    ctx.fillText(who, P, 200);
+    let y = 290;
+    blocks.forEach((b, i) => {
+      ctx.fillStyle = '#ffffff'; roundRect(ctx, P - 20, y - 20, CW + 40, b.h, 22); ctx.fill();
+      ctx.fillStyle = '#b7802f'; ctx.beginPath(); ctx.arc(P + 24, y + 26, 26, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#fff'; ctx.font = `700 28px ${FONT}`; ctx.textAlign = 'center'; ctx.fillText(String(i + 1), P + 24, y + 36); ctx.textAlign = 'left';
+      ctx.fillStyle = '#1d2a26'; ctx.font = `700 36px ${FONT}`;
+      const t = b.it.title.trim() || '(제목 없음)';
+      ctx.fillText(wrap(ctx, t, CW - 260)[0], P + 68, y + 39);
+      if (b.it.cat) { ctx.font = `700 24px ${FONT}`; const tw = ctx.measureText(b.it.cat).width + 32; ctx.fillStyle = '#f6ecdc'; roundRect(ctx, P + CW - tw, y + 6, tw, 42, 21); ctx.fill(); ctx.fillStyle = '#8a5d1d'; ctx.fillText(b.it.cat, P + CW - tw + 16, y + 36); }
+      let yy = y + 80;
+      if (imgs[i]) { ctx.save(); roundRect(ctx, P, yy, CW, b.ph, 14); ctx.clip(); const im = imgs[i]; const sc = Math.max(CW / im.width, b.ph / im.height); ctx.drawImage(im, P + (CW - im.width * sc) / 2, yy + (b.ph - im.height * sc) / 2, im.width * sc, im.height * sc); ctx.restore(); yy += b.ph + 26; }
+      b.parts.forEach(([k, ls]) => {
+        ctx.fillStyle = '#e3efec'; roundRect(ctx, P, yy - 4, 86, 40, 10); ctx.fill();
+        ctx.fillStyle = '#1f5f5b'; ctx.font = `700 24px ${FONT}`; ctx.textAlign = 'center'; ctx.fillText(k, P + 43, yy + 24); ctx.textAlign = 'left';
+        ctx.fillStyle = '#1d2a26'; ctx.font = `400 30px ${FONT}`;
+        ls.forEach((l, j) => ctx.fillText(l, P + 110, yy + 26 + j * 44));
+        yy += ls.length * 44 + 14;
+      });
+      y += b.h + 30;
+    });
+    ctx.fillStyle = '#5d6b66'; ctx.font = `400 22px ${FONT}`; ctx.fillText('2026 미래농고·농업계학교 국외현장실습 · Team Works', P, H - 40);
+    return c.toDataURL('image/jpeg', 0.88);
+  }
+  function roundRect(ctx, x, y, w, h, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
+
+  let lastCard = '';
+  $('make').addEventListener('click', async () => {
+    const btn = $('make'); btn.disabled = true; btn.textContent = '카드 만드는 중…';
+    try {
+      lastCard = await makeCard();
+      $('cardImg').src = lastCard; $('result').hidden = false;
+      const n = state.items.filter(filled).length;
+      $('cardMsg').textContent = n < 3 ? `아직 ${3 - n}칸이 덜 채워졌습니다. 다 채운 뒤 다시 만들 수 있어요.` : '기록 카드가 완성되었습니다. 아래 이미지를 저장해 패들렛에 올리세요.';
+      $('result').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+    } catch (e) { $('saved').textContent = '카드를 만들지 못했습니다. 사진 수를 줄이거나 다시 시도해 주세요.'; }
+    btn.disabled = false; btn.textContent = '기록 카드 다시 만들기';
+  });
+
+  // 파일 저장(가능한 환경에서만)
+  let downloads = null;
+  (async () => {
+    try { downloads = window.claude && (await window.claude.use('downloads')); } catch (e) { downloads = null; }
+    if (downloads) $('dl').hidden = false;
+  })();
+  $('dl').addEventListener('click', async () => {
+    if (!downloads || !lastCard) return;
+    try {
+      const bin = atob(lastCard.split(',')[1]); const arr = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+      const nm = (state.name || '학생').replace(/[^\w가-힣]/g, '');
+      await downloads.save({ filename: `산스이_농박관찰_${nm}.jpg`, data: new Blob([arr], { type: 'image/jpeg' }) });
+    } catch (e) { $('saved').textContent = '파일 저장이 취소되었거나 안 되는 환경입니다. 카드 이미지를 길게 눌러 저장하세요.'; }
+  });
+
+  renderCards();
+})();
+</script>
+</body>
+</html>
